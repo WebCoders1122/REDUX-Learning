@@ -4,7 +4,10 @@ import { thunk } from "redux-thunk";
 import axios from "axios";
 
 //action names
-const init = "account/initialize";
+// const init = "account/initialize";
+const accFetchResolved = "account/getAccountData/initialize";
+const accFetchRejected = "account/getAccountData/reject";
+const accFetchPending = "account/getAccountData/pending";
 const inc = "account/increment";
 const dec = "account/decrement";
 const incByAmt = "account/incrementByAmount";
@@ -15,8 +18,13 @@ const bonusInit = "bonus/initialize";
 //API calls
 const getAccountData = (id) => {
   return async (dispatch, getState) => {
-    let { data } = await axios.get(`http://localhost:3000/employees/${id}`);
-    dispatch(initializeUser(data));
+    try {
+      dispatch(getAccountDataPending());
+      let { data } = await axios.get(`http://localhost:3000/employees/${id}`);
+      dispatch(getAccountDataResolved(data));
+    } catch (error) {
+      dispatch(getAccountDataRejected(error.message));
+    }
   };
 };
 const getBonusData = (id) => {
@@ -38,8 +46,12 @@ const store = createStore(
 // Reducers
 function accountReducer(state = { salary: 100 }, action) {
   switch (action.type) {
-    case init:
-      return { salary: action.payload.salary };
+    case accFetchResolved:
+      return { salary: action.payload.salary, pending: false };
+    case accFetchRejected:
+      return { ...state, error: action.error, pending: false };
+    case accFetchPending:
+      return { ...state, pending: true };
     case inc:
       return { salary: state.salary + 50 };
     case dec:
@@ -73,8 +85,17 @@ const decrement = () => {
 const incrementByAmount = (value) => {
   return { type: incByAmt, payload: value };
 };
-const initializeUser = (value) => {
-  return { type: init, payload: value };
+// const initializeUser = (value) => {
+//   return { type: init, payload: value };
+// };
+const getAccountDataResolved = (value) => {
+  return { type: accFetchResolved, payload: value };
+};
+const getAccountDataRejected = (error) => {
+  return { type: accFetchRejected, error: error };
+};
+const getAccountDataPending = () => {
+  return { type: accFetchPending };
 };
 
 const bonusIncrement = () => {
@@ -93,5 +114,5 @@ const bonusInitialize = (value) => {
 // }, 2500);
 
 // store.dispatch(getAccountData(2));
-store.dispatch(getBonusData(2));
+store.dispatch(getAccountData(2));
 // console.log(axios.get("`http://localhost:3000/employees"));

@@ -2,34 +2,28 @@
     "employees" : [
     {
         "id":1,
-        "Name":"shakir",
         "salary": "1200"
     },
     {
         "id":2,
-        "Name":"aqib",
         "salary": "1300"
     },
     {
         "id":3,
-        "Name":"faraz",
         "salary": "1400"
     }
 ],
 "bonus" : [
     {
         "id":1,
-        "name":"shakir",
         "points":10
     },
     {
         "id":2,
-        "name":"aqib",
         "points":12
     },
     {
         "id":3,
-        "name":"faraz",
         "points":14
     }
 ]
