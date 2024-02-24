@@ -3,8 +3,7 @@ import MainHeading from "./small-components/MainHeading";
 import SubHeading from "./small-components/SubHeading";
 import Button from "./small-components/Button";
 
-const Account = () => {
-  const [salary, setSalary] = useState(0);
+const Account = ({ salary, setSalary }) => {
   const [incAmount, setIncAmount] = useState(0);
 
   return (

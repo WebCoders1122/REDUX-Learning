@@ -3,8 +3,7 @@ import MainHeading from "./small-components/MainHeading";
 import SubHeading from "./small-components/SubHeading";
 import Button from "./small-components/Button";
 
-const Bonus = () => {
-  const [points, setPoints] = useState(0);
+const Bonus = ({ points, setPoints }) => {
   return (
     <div className='bonusContainer flex justify-center items-center flex-col p-5 m-2 border-2 border-yellow-500'>
       <MainHeading>Bonus Component</MainHeading>
