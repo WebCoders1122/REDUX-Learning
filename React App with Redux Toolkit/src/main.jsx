@@ -5,10 +5,12 @@ import "./index.css";
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
 import accountReducer from "./slices/accountSlice.jsx";
+import bonusReducer from "./slices/bonusSlice.jsx";
 
 const store = configureStore({
   reducer: {
     account: accountReducer,
+    bonus: bonusReducer,
   },
 });
 

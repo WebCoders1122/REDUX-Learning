@@ -1,7 +1,22 @@
 import React from "react";
-
+import Account from "./components/Account";
+import Bonus from "./components/Bonus";
+import MainHeading from "./components/small-components/MainHeading";
+import SubHeading from "./components/small-components/SubHeading";
+import { useSelector } from "react-redux";
 const App = () => {
-  return <div className='bg-black text-white'>App</div>;
+  const salary = useSelector((state) => state.account.salary);
+  const points = useSelector((state) => state.bonus.points);
+
+  return (
+    <div className='container p-3 w-screen'>
+      <MainHeading>App</MainHeading>
+      <SubHeading>Total Salary : {salary}</SubHeading>
+      <SubHeading>Total Bonus : {points}</SubHeading>
+      <Account></Account>
+      <Bonus></Bonus>
+    </div>
+  );
 };
 
 export default App;
