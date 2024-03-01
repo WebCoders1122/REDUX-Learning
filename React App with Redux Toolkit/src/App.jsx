@@ -8,12 +8,16 @@ import Reward from "./components/Rewards";
 const App = () => {
   const salary = useSelector((state) => state.account.salary);
   const points = useSelector((state) => state.bonus.points);
+  const rewardPoints = useSelector((state) => state.reward.rewardPoints);
 
   return (
     <div className='container p-3 w-screen'>
       <MainHeading>App</MainHeading>
-      <SubHeading>Total Salary : {salary}</SubHeading>
-      <SubHeading>Total Bonus : {points}</SubHeading>
+      <div className='flex justify-center items-center gap-5'>
+        <SubHeading>Total Salary : {salary}</SubHeading>
+        <SubHeading>Total Bonus : {points}</SubHeading>
+        <SubHeading>Reward Bonus : {rewardPoints}</SubHeading>
+      </div>
       <Account></Account>
       <Bonus></Bonus>
       <Reward></Reward>

@@ -6,13 +6,23 @@ import {
   increment,
   decrement,
   incrementByAmount,
+  getUserByDB,
 } from "../slices/accountSlice";
 import { useSelector, useDispatch } from "react-redux";
 
 const Account = () => {
-  useSelector((state) => console.log(state));
-  const salary = useSelector((state) => state.account.salary);
+  // const salary = useSelector((state) => {
+  //   state.account.salary.pending
+  //     ? "Loading"
+  //     : state.account.salary.error
+  //     ? state.account.salary.error
+  //     : state.account.salary;
+  // });
+  // console.log(salary);
+  // const salary = useSelector((state) => state.account.salary);
+  const account = useSelector((state) => state.account);
   const points = useSelector((state) => state.bonus.points);
+  const rewardPoints = useSelector((state) => state.reward.rewardPoints);
 
   const dispatch = useDispatch();
   const [incAmount, setIncAmount] = useState(0);
@@ -20,8 +30,18 @@ const Account = () => {
   return (
     <div className='salaryContainer flex justify-center items-center flex-col p-5 m-2 border-2 border-yellow-500'>
       <MainHeading>Salary Component</MainHeading>
-      <SubHeading>Total Salary : {salary}</SubHeading>
-      <SubHeading>Total Bonus : {points}</SubHeading>
+      <div className='flex justify-center items-center gap-5'>
+        <SubHeading>
+          Total Salary :{" "}
+          {account.pending
+            ? "Loading..."
+            : account.error
+            ? account.error.message
+            : account.salary}
+        </SubHeading>
+        <SubHeading>Total Bonus : {points}</SubHeading>
+        <SubHeading>Reward Bonus : {rewardPoints}</SubHeading>
+      </div>
       <div className='actions text-center '>
         <Button onClick={() => dispatch(increment())}>Increment</Button>
         <Button onClick={() => dispatch(decrement())}>Decrement</Button>
@@ -35,6 +55,7 @@ const Account = () => {
         <Button onClick={() => dispatch(incrementByAmount(incAmount))}>
           Increment By {incAmount}
         </Button>
+        <Button onClick={() => dispatch(getUserByDB(1))}>Init Salary</Button>
       </div>
     </div>
   );
