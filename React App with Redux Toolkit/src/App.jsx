@@ -5,6 +5,7 @@ import MainHeading from "./components/small-components/MainHeading";
 import SubHeading from "./components/small-components/SubHeading";
 import { useSelector } from "react-redux";
 import Reward from "./components/Rewards";
+import Admin from "./components/admin";
 const App = () => {
   const salary = useSelector((state) => state.account.salary);
   const points = useSelector((state) => state.bonus.points);
@@ -21,6 +22,7 @@ const App = () => {
       <Account></Account>
       <Bonus></Bonus>
       <Reward></Reward>
+      <Admin></Admin>
     </div>
   );
 };
