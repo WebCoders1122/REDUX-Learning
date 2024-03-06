@@ -28,6 +28,15 @@ const acountSlice = createSlice({
     incrementByAmount: (state, action) => {
       state.salary += action.payload;
     },
+    decrementByAmout: (state, action) => {
+      if (action.payload > state.salary) {
+        return alert(
+          "Please Enter amout which is less than or equal to Salary"
+        );
+      } else {
+        state.salary -= action.payload;
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -44,5 +53,6 @@ const acountSlice = createSlice({
       });
   },
 });
-export const { increment, decrement, incrementByAmount } = acountSlice.actions;
+export const { increment, decrement, incrementByAmount, decrementByAmout } =
+  acountSlice.actions;
 export default acountSlice.reducer;

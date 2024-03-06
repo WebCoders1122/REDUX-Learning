@@ -7,6 +7,7 @@ import {
   decrement,
   incrementByAmount,
   getUserByDB,
+  decrementByAmout,
 } from "../slices/accountSlice";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -26,6 +27,7 @@ const Account = () => {
 
   const dispatch = useDispatch();
   const [incAmount, setIncAmount] = useState(0);
+  const [decAmount, setDecAmount] = useState(0);
 
   return (
     <div className='salaryContainer flex justify-center items-center flex-col p-5 m-2 border-2 border-yellow-500'>
@@ -55,6 +57,17 @@ const Account = () => {
         <Button onClick={() => dispatch(incrementByAmount(incAmount))}>
           Increment By {incAmount}
         </Button>
+        <br />
+        <input
+          onChange={(e) => setDecAmount(Number(e.target.value))}
+          value={decAmount}
+          type='number'
+          className='bg-slate-200 rounded-md text-md py-1 px-3 border-2 border-yellow-500 outline-2 outline-yellow-600 w-40'
+        />
+        <Button onClick={() => dispatch(decrementByAmout(decAmount))}>
+          Decrement By {decAmount}
+        </Button>
+        <br />
         <Button onClick={() => dispatch(getUserByDB(1))}>Init Salary</Button>
       </div>
     </div>
