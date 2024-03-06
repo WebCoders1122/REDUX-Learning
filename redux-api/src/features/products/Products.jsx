@@ -3,22 +3,24 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchAsync } from "./productsSlice";
 import styles from "./products.module.css";
+import { useEffect } from "react";
+// for add to cart feat
+import { addAsync } from "../cart/cartSlice";
 
 export default function Products() {
   const dispatch = useDispatch();
-  const products = useSelector((state) => state.product.products);
+  const product = useSelector((state) => state.product);
+
+  useEffect(() => {
+    dispatch(fetchAsync());
+  }, []);
 
   return (
-    <div>
-      <div className={styles.card}>
-        <p>hello</p>
-        <button
-          className={styles.button}
-          aria-label='Decrement value'
-          onClick={() => dispatch(fetchAsync())}>
-          Fetch Products
-        </button>
-        {products.map((product) => {
+    <div className={styles.card}>
+      {product.status == "loading" ? (
+        <h1>Loading ...</h1>
+      ) : (
+        product.products.map((product) => {
           return (
             <div
               className={styles.card}
@@ -32,12 +34,14 @@ export default function Products() {
               <p className={styles.price}>${product.price}</p>
               <p>{product.description}</p>
               <p>
-                <button>Add to Cart</button>
+                <button onClick={() => dispatch(addAsync(product))}>
+                  Add to Cart
+                </button>
               </p>
             </div>
           );
-        })}
-      </div>
+        })
+      )}
     </div>
   );
 }
